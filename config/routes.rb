@@ -4,5 +4,14 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/logged_in', to: 'sessions#is_logged_in?'
 
-  resources :users, only: [:create, :show, :index, :update]
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :users, only: [:create, :show, :index, :update]
+      resources :movies, only: [:index] do
+        member do
+          get :upcoming_shows
+        end
+      end
+    end
+  end
 end

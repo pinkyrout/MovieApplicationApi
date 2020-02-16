@@ -10,10 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_13_185939) do
+ActiveRecord::Schema.define(version: 2020_02_16_081601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer "price"
+    t.bigint "show_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["show_id"], name: "index_bookings_on_show_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "name"
+    t.float "rating"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.string "category"
+    t.float "price"
+    t.boolean "is_booked", default: false
+    t.bigint "booking_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["booking_id"], name: "index_seats_on_booking_id"
+  end
+
+  create_table "shows", force: :cascade do |t|
+    t.integer "start_time"
+    t.integer "end_time"
+    t.date "date"
+    t.boolean "is_full"
+    t.string "screen"
+    t.bigint "movie_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_shows_on_movie_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
