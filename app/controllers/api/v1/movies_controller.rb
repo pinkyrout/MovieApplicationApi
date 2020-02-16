@@ -1,5 +1,5 @@
 class Api::V1::MoviesController < Api::V1::BaseController
-  load_resource
+  load_resource except: :index
 
   def index
     movies = Api::V1::MovieBlueprint.render Movie.all, view: :normal

@@ -12,6 +12,12 @@ Rails.application.routes.draw do
           get :upcoming_shows
         end
       end
+      resources :shows do
+        member do
+          get :seats
+        end
+      end
+      resources :bookings, only: [:create, :index]
     end
   end
 end
