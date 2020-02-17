@@ -28,7 +28,7 @@ movies_detail.each do |movie_details|
     show = Show.find_or_create_by(start_time: show_details[:start_time], end_time: show_details[:end_time], date: Date.today, is_full: false, movie_id: movie.id)
     seats_detail.each do |seat_details|
       seat_details[:number].times do |index|
-        Seat.create(category: seat_details[:category], price: seat_details[:price], is_booked: false, show_id: show.id, number: "#{seat_details[:category]}#{index+1}")
+        Seat.find_or_create_by(category: seat_details[:category], price: seat_details[:price], is_booked: false, show_id: show.id, number: "#{seat_details[:category]}#{index+1}")
       end
     end
   end
