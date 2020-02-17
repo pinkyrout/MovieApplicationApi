@@ -1,6 +1,6 @@
 class Api::V1::BookingsController < ApplicationController
   def index
-    bookings = Api::V1::BookingBlueprint.render Booking.all.includes([{ show: :movie }, :seats]), view: :extended
+    bookings = Api::V1::BookingBlueprint.render Booking.order(created_at: :desc).includes([{ show: :movie }, :seats]), view: :extended
     render json: bookings
   end
 

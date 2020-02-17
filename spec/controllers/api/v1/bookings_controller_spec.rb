@@ -5,12 +5,12 @@ RSpec.describe Api::V1::BookingsController, type: :controller do
     let!(:booking1) { FactoryBot.create(:booking) }
     let!(:booking2) { FactoryBot.create(:booking) }
 
-    it 'returns list of all bookings' do
+    it 'returns list of all bookings sorted by descending order of created at' do
       get :index
       bookings = JSON.parse(response.body)
 
       expect(bookings.count).to eq(2)
-      expect(bookings.pluck('id')).to match_array([booking1.id, booking2.id])
+      expect(bookings.pluck('id')).to eq([booking2.id, booking1.id])
     end
   end
 
