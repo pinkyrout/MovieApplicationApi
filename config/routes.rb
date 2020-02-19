@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :shows, only: [:index] do
         member do
           get :seats
+          post :download_report
         end
       end
       resources :bookings, only: [:create, :index]

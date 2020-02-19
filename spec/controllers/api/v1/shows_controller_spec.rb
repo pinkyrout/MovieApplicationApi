@@ -45,4 +45,22 @@ RSpec.describe Api::V1::ShowsController, type: :controller do
       expect(movie_show['id']).to eq(show.id)
     end
   end
+
+  describe 'POST download_report' do
+    let!(:show) { FactoryBot.create(:show) }
+    let!(:seat1) { FactoryBot.create(:seat, show: show) }
+    let!(:seat2) { FactoryBot.create(:seat, show: show) }
+
+    it 'generates xlsx file for the show report and returns the file path' do
+      post :download_report, params: { id: show.id }
+
+      res = JSON.parse(response.body)
+      file_path = res['data']['file_path']
+      file = Roo::Spreadsheet.open("#{Rails.root}/public/#{file_path}", extension: :xlsx)
+
+      expect(File.exist?("#{Rails.root}/public/#{file_path}")).to eq(true)
+      expect(file.row(1)).to eq(['Seat Id', 'Seat Category', 'Seat Number', 'Booked'])
+      expect(file.column(1)).to eq(["Seat Id", seat1.id, seat2.id])
+    end
+  end
 end

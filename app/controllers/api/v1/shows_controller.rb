@@ -1,4 +1,4 @@
-class Api::V1::ShowsController < ApplicationController
+class Api::V1::ShowsController < Api::V1::BaseController
   load_resource except: :index
 
   def index
@@ -15,5 +15,14 @@ class Api::V1::ShowsController < ApplicationController
       count: count
     }
     render json: data
+  end
+
+  def download_report
+    file_path = V1::Export::ShowReport.new({id: params[:id]}).process
+    if file_path
+      render_success(data: { file_path: file_path }, message: 'Exported Successfully', status: :ok) if file_path
+    else
+      render_error(message: "Export Failed", status: :unprocessible_entity)
+    end
   end
 end

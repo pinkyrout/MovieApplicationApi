@@ -25,6 +25,10 @@ gem 'rack-cors'
 gem 'blueprinter'
 gem 'cancancan'
 gem 'kaminari'
+gem 'axlsx'
+gem 'rubyzip', '>= 1.0.0'
+gem 'zip-zip'
+gem 'roo'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
