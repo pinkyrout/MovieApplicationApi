@@ -7,7 +7,7 @@ class Api::V1::MoviesController < Api::V1::BaseController
   end
 
   def upcoming_shows
-    shows_list = Api::V1::ShowBlueprint.render @movie.shows.active_shows, view: :detail
+    shows_list = Api::V1::ShowBlueprint.render @movie.shows.active_shows, view: :extended
     render json: shows_list
   end
 

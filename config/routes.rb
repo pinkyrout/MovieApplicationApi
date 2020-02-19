@@ -16,7 +16,7 @@ Rails.application.routes.draw do
           get :upcoming_shows
         end
       end
-      resources :shows do
+      resources :shows, only: [:index] do
         member do
           get :seats
         end
