@@ -11,7 +11,7 @@ Rails.application.routes.draw do
           post :authenticate_user
         end
       end
-      resources :movies, only: [:index] do
+      resources :movies, only: [:index, :create, :edit, :update, :destroy] do
         member do
           get :upcoming_shows
         end

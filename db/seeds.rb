@@ -23,7 +23,7 @@ seats_detail = [{category: 'lower', price: 150.0, number: 30},
 ]
 
 movies_detail.each do |movie_details|
-  movie = Movie.find_or_create_by(name: movie_details[:name], rating: movie_details[:rating])
+  movie = Movie.find_or_create_by(name: movie_details[:name], rating: movie_details[:rating], is_active: true)
   shows_detail.each do |show_details|
     show = Show.find_or_create_by(start_time: show_details[:start_time], end_time: show_details[:end_time], date: Date.today, is_full: false, movie_id: movie.id)
     seats_detail.each do |seat_details|
