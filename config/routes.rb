@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :users, only: [:create, :show, :index, :update]
+      resources :users do
+        collection do
+          post :authenticate_user
+        end
+      end
       resources :movies, only: [:index] do
         member do
           get :upcoming_shows
