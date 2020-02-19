@@ -6,7 +6,10 @@ class Api::V1::ShowsController < ApplicationController
   end
 
   def seats
-    seats_list = Api::V1::SeatBlueprint.render @show.seats, view: :extended
-    render json: seats_list
+    seats = @show.seats.order(id: :desc)
+    count = seats.count
+    seats = seats.page(params[:page] || 1).per(10) if params[:is_admin]
+    data = { seats: (Api::V1::SeatBlueprint.render seats, view: :extended), count: count }
+    render json: data
   end
 end

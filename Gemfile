@@ -24,6 +24,7 @@ gem 'bcrypt'
 gem 'rack-cors'
 gem 'blueprinter'
 gem 'cancancan'
+gem 'kaminari'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
