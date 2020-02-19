@@ -2,8 +2,8 @@ class Api::V1::MoviesController < Api::V1::BaseController
   load_resource except: [:index, :create, :edit]
 
   def index
-  	movies = params[:is_admin] ? Movie.all : Movie.active_movies
-    render json: (Api::V1::MovieBlueprint.render movies, view: :normal)
+    movies = params[:is_admin] ? Movie.all : Movie.active_movies
+    render json: (Api::V1::MovieBlueprint.render movies.order(id: :desc), view: :normal)
   end
 
   def upcoming_shows
@@ -12,8 +12,12 @@ class Api::V1::MoviesController < Api::V1::BaseController
   end
 
   def create
-    Movie.create(name: params[:name], rating: params[:rating])
-    head :ok
+    movie = Movie.new(name: params[:name], rating: params[:rating], is_active: params[:is_active])
+    if movie.save
+      render_success(message: "Success", status: :ok)
+    else
+      render_error(message: "Creation Failed", status: :unprocessible_entity)
+    end
   end
 
   def edit
@@ -22,12 +26,18 @@ class Api::V1::MoviesController < Api::V1::BaseController
   end
 
   def update
-    @movie.update(name: params[:name], rating: params[:rating], is_active: params[:is_active])
-    head :ok
+    if @movie.update(name: params[:name], rating: params[:rating], is_active: params[:is_active])
+      render_success(message: "Success", status: :ok)
+    else
+      render_error(message: "Update Failed", status: :unprocessible_entity)
+    end
   end
 
   def destroy
-    @movie.destroy
-    head :ok
+    if @movie.destroy
+      render_success(message: "Success", status: :ok)
+    else
+      render_error(message: "Delete Failed", status: :unprocessible_entity)
+    end
   end
 end

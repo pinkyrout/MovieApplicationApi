@@ -2,7 +2,7 @@ class Api::V1::ShowsController < ApplicationController
   load_resource except: :index
 
   def index
-    render json: (Api::V1::ShowBlueprint.render Show.includes(:movie), view: :extended)
+    render json: (Api::V1::ShowBlueprint.render Show.order(id: :desc).includes(:movie), view: :extended)
   end
 
   def seats
