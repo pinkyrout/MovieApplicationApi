@@ -34,4 +34,4 @@ movies_detail.each do |movie_details|
   end
 end
 
-User.find_or_create_by(username: 'Mohan', email: 'mohan@gmail.com')
+User.find_or_create_by(username: 'Mohan', email: 'mohan@gmail.com', password_digest: "movies")
