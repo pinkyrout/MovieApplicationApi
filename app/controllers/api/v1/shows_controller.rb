@@ -10,8 +10,8 @@ class Api::V1::ShowsController < Api::V1::BaseController
     count = seats.count
     seats = seats.page(params[:page] || 1).per(10) if params[:is_admin]
     data = {
-      seats: (Api::V1::SeatBlueprint.render seats, view: :extended),
-      show: (Api::V1::ShowBlueprint.render @show, view: :extended),
+      seats: (Api::V1::SeatBlueprint.render_as_hash seats, view: :extended),
+      show: (Api::V1::ShowBlueprint.render_as_hash @show, view: :extended),
       count: count
     }
     render json: data

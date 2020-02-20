@@ -21,26 +21,26 @@ RSpec.describe Api::V1::ShowsController, type: :controller do
     context 'when params have is_admin flag' do
       it 'returns show seats per page with total count of seats' do
         get :seats, params: { id: show.id, is_admin: true }
-        seats = JSON.parse(JSON.parse(response.body)['seats'])
+        res = JSON.parse(response.body)
 
-        expect(seats.count).to eq(10)
-        expect(JSON.parse(response.body)['count']).to eq(20)
+        expect(res['seats'].count).to eq(10)
+        expect(res['count']).to eq(20)
       end
     end
 
     context 'when params does not have is_admin flag' do
       it 'returns list of all seats for the show with total count of seats' do
         get :seats, params: { id: show.id }
-        seats = JSON.parse(JSON.parse(response.body)['seats'])
+        res = JSON.parse(response.body)
 
-        expect(seats.count).to eq(20)
-        expect(JSON.parse(response.body)['count']).to eq(20)
+        expect(res['seats'].count).to eq(20)
+        expect(res['count']).to eq(20)
       end
     end
 
     it 'returns show details' do
       get :seats, params: { id: show.id }
-      movie_show = JSON.parse(JSON.parse(response.body)['show'])
+      movie_show = JSON.parse(response.body)['show']
 
       expect(movie_show['id']).to eq(show.id)
     end
