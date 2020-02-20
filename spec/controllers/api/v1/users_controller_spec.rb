@@ -36,4 +36,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
   end
+
+  describe 'POST create' do
+    it 'creates new user and returns success message if user is saved successfully' do
+      expect(User.count).to eq(0)
+
+      post :create, params: { username: 'Leela', password: 'movieess', email: 'leela@gmail.com' }
+      res = JSON.parse(response.body)
+
+      expect(response.status).to eq(200)
+      expect(res['message']).to eq('Success')
+      expect(User.count).to eq(1)
+      expect(User.last.username).to eq('Leela')
+    end
+  end
 end
