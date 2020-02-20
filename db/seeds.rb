@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 movies_detail = [
-  {name: 'Luve Aaj Kal', rating: 8.5},
+  {name: 'Love Aaj Kal', rating: 8.5},
   {name: 'Hacked', rating: 7.5}
 ]
 
